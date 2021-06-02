@@ -10,6 +10,7 @@ import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
 import FontSize from '@ckeditor/ckeditor5-font/src/fontsize.js';
+import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js';
 import Image from '@ckeditor/ckeditor5-image/src/image.js';
@@ -42,10 +43,8 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 
-class Editor extends InlineEditor {}
-
 // Plugins to include in the build.
-Editor.builtinPlugins = [
+InlineEditor.builtinPlugins = [
 	Alignment,
 	AutoImage,
 	Base64UploadAdapter,
@@ -53,6 +52,7 @@ Editor.builtinPlugins = [
 	Bold,
 	Essentials,
 	FontSize,
+	FontColor,
 	Heading,
 	HorizontalLine,
 	Image,
@@ -86,4 +86,71 @@ Editor.builtinPlugins = [
 	Underline
 ];
 
-export default Editor;
+InlineEditor
+	.create(document.querySelector('.editor'), {
+
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'heading',
+				'fontSize',
+				'fontColor',
+				'|',
+				'bold',
+				'italic',
+				'underline',
+				'|',
+				'outdent',
+				'indent',
+				'alignment',
+				'-',
+				'bulletedList',
+				'numberedList',
+				'horizontalLine',
+				'|',
+				'subscript',
+				'superscript',
+				'strikethrough',
+				'|',
+				'imageUpload',
+				'blockQuote',
+				'insertTable',
+				'|',
+				'MathType',
+				'ChemType',
+				'specialCharacters'
+			]
+		},
+		language: 'pt-br',
+		image: {
+			toolbar: [
+				'imageTextAlternative',
+				'imageStyle:full',
+				'imageStyle:side'
+			]
+		},
+		table: {
+			contentToolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells',
+				'tableCellProperties',
+				'tableProperties'
+			]
+		},
+		licenseKey: '',
+
+
+	})
+	.then(editor => {
+		window.editor = editor;
+	})
+	.catch(error => {
+		console.error('Oops, something went wrong!');
+		console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+		console.warn('Build id: hg69mfustg9-63euh2d1z1gk');
+		console.error(error);
+	});
+
+
